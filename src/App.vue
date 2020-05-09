@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    黑马头条
+    <!-- 路由出口 -->
     <router-view/>
   </div>
 </template>
