@@ -132,3 +132,15 @@
 .iconsousuo:before {
   content: "\e613";
 }
+.body {
+  background-color: #f5f7f9;
+}
+.app-nav-bar {
+  background-color: #3296fa !important;
+}
+.app-nav-bar .van-nav-bar__title {
+  color: #ffffff;
+}
+.app-nav-bar .van-icon {
+  color: #ffffff !important;
+}
