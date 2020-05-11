@@ -10,3 +10,10 @@ export const login = (data) => {
     data
   })
 }
+// 发送短信验证码请求
+export const sendms = (mobile) => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/sms/codes/${mobile}`
+  })
+}
