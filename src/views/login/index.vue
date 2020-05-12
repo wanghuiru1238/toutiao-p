@@ -111,6 +111,8 @@ export default {
         this.$toast.success('登录成功')
         // 吧后端返回的用户登录信息(token)放到vue容器中
         this.$store.commit('setUser', res.data.data)
+        // 登录成功跳转到原来页面
+        this.$router.back() // 此方法不必建议使用 暂时替代
       } catch (err) {
         // console.log('登陆失败', err)
         this.$toast.fail('登录失败,手机号或验证码错误')

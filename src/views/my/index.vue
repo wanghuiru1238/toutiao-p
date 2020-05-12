@@ -1,6 +1,6 @@
 <template>
   <div class="my-c">
-    <van-cell-group class="my-info">
+    <van-cell-group v-if="user" class="my-info">
       <!-- 用户个人信息start -->
       <van-cell
       class="base-info"
@@ -52,6 +52,15 @@
     </van-cell-group>
       <!-- 用户信息数据统计end -->
 
+      <!-- 未登录页面布局start -->
+      <div v-else class="not-login">
+        <div @click="$router.push('/login')">
+          <img class="mobile" src="./mobile.png">
+        </div>
+        <div class="text">登录 / 注册</div>
+      </div>
+      <!-- 未登录页面布局end -->
+
       <!-- 宫格导航start -->
       <van-grid class="nav-grid" :column-num="2">
         <van-grid-item class="nav-grid-item" icon-prefix="toutiao" icon="shoucang" text="收藏" />
@@ -62,7 +71,7 @@
       <!-- 单元格导航start -->
       <van-cell class="message" title="消息通知" is-link to="" />
       <van-cell class="xiaozhi" title="小智同学" is-link to="" />
-      <van-cell class="outlogin" title="退出登录"/>
+      <van-cell class="outlogin" v-if="user" title="退出登录"/>
       <!-- 单元格导航end -->
   </div>
 </template>
@@ -134,6 +143,23 @@ export default {
           }
         }
       }
+    }
+  }
+  .not-login {
+    height: 180px;
+    background: url('./banner.png') no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .mobile {
+      width: 66px;
+      height: 66px;
+    }
+    .text {
+      font-size: 16px;
+      color: #ffffff;
     }
   }
   /deep/ .nav-grid {
