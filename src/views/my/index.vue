@@ -71,7 +71,7 @@
       <!-- 单元格导航start -->
       <van-cell class="message" title="消息通知" is-link to="" />
       <van-cell class="xiaozhi" title="小智同学" is-link to="" />
-      <van-cell class="outlogin" v-if="user" title="退出登录"/>
+      <van-cell class="outlogin" v-if="user" @click="onlogout" title="退出登录"/>
       <!-- 单元格导航end -->
   </div>
 </template>
@@ -91,7 +91,22 @@ export default {
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    onlogout () {
+      // 点击退出登录 提示信息
+      this.$dialog.confirm({
+        title: '退出登录提示信息',
+        message: '是否确认退出登录'
+      })
+        // 确认退出 清除用户的登录状态
+        .then(() => {
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
+  }
 }
 </script>
 
