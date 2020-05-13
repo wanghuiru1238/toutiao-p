@@ -11,7 +11,10 @@
       finished-text="没有更多了"
       @load="loadArticles"
     >
-       <van-cell v-for="(article, index) in articles" :key="index" :title="article.title" />
+    <article-item
+    :article="article"
+    v-for="(article, index) in articles" :key="index"/>
+       <!-- <van-cell v-for="(article, index) in articles" :key="index" :title="article.title" /> -->
     </van-list>
     </van-pull-refresh>
   </div>
@@ -19,9 +22,12 @@
 
 <script>
 import { getArticlesList } from '@/api/article'
+import ArticleItem from '@/component/article-item/index'
 export default {
   name: 'ArticleList',
-  components: {},
+  components: {
+    ArticleItem
+  },
   props: {
     channel: {
       type: Object,
