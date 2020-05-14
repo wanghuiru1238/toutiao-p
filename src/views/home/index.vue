@@ -17,6 +17,16 @@
         </van-tab>
       </van-tabs>
     <!-- 文章频道列表end -->
+
+    <!-- 弹出层 挂载到body节点上 -->
+    <van-popup
+    class="channel-edit"
+    style="height: 100%"
+    closeable
+     close-icon-position="top-left"
+     get-container="body"
+    v-model="channelShow"
+    position="bottom"/>
   </div>
 </template>
 
@@ -31,8 +41,8 @@ export default {
   props: {},
   data () {
     return {
-      // 按照索引控制频道默认显示项
-      active: 0,
+      channelShow: false, // 控制弹出层是否弹出
+      active: 0, // 按照索引控制频道默认显示项
       channels: [] // 频道列表
     }
   },
