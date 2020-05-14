@@ -15,6 +15,16 @@
           <article-list :channel="channel" />
           <!-- 文章列表end -->
         </van-tab>
+
+        <!-- 占位符 防止汉堡图把频道列表中的最后一个元素给遮住 -->
+        <div class="nav-placeholder" slot="nav-right"></div>
+
+        <!-- 频道列表右侧 汉堡图标 -->
+        <div slot="nav-right"
+        class="wap-nav-wrap"
+        @click="channelShow = true">
+          <van-icon name="wap-nav"></van-icon>
+        </div>
       </van-tabs>
     <!-- 文章频道列表end -->
 
@@ -26,22 +36,29 @@
      close-icon-position="top-left"
      get-container="body"
     v-model="channelShow"
-    position="bottom"/>
+    position="bottom">
+
+    <!-- 频道编辑里内容组件 -->
+    <channel-edit :user-channels="channels" />
+
+    </van-popup>
   </div>
 </template>
 
 <script>
+import ChannelEdit from './components/channel-edit'
 import { getchannels } from '@/api/user'
 import ArticleList from './components/article-list'
 export default {
   name: 'HomeIndex',
   components: {
-    ArticleList
+    ArticleList,
+    ChannelEdit
   },
   props: {},
   data () {
     return {
-      channelShow: false, // 控制弹出层是否弹出
+      channelShow: true, // 控制弹出层是否弹出
       active: 0, // 按照索引控制频道默认显示项
       channels: [] // 频道列表
     }
@@ -87,5 +104,31 @@ export default {
         background: #3296fa;
       }
     }
+  .wap-nav-wrap {
+    position: fixed;
+    right: 0;
+    width: 33px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, .8);
+    .van-icon {
+      font-size: 23px;
+    }
+    &:before {
+      content: '';
+      width: 1px;
+      height: 29px;
+      background: url('./line.png') no-repeat;
+      background-size: cover;
+      position: absolute;
+      left: 0;
+    }
+  }
+  .nav-placeholder {
+    width: 32px;
+    flex-shrink: 0;
+  }
 }
 </style>
