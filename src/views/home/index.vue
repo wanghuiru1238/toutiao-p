@@ -39,7 +39,10 @@
     position="bottom">
 
     <!-- 频道编辑里内容组件 -->
-    <channel-edit :user-channels="channels" />
+    <channel-edit
+    :user-channels="channels"
+    @close="channelShow = false"
+    @update-active="active = $event"/>
 
     </van-popup>
   </div>
@@ -75,6 +78,11 @@ export default {
       // console.log(res)
       this.channels = res.data.data.channels
     }
+    // 可直接在模板中通过$event默认接收传递的参数
+    // onUpdateActive (index) {
+    //   console.log(index)
+    //   this.active = index
+    // }
   }
 }
 </script>

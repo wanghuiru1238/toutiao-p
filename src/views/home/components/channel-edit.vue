@@ -111,7 +111,7 @@ export default {
         this.deleteChannel()
       } else {
         // 非编辑状态: 切换频道
-        this.changeChannel()
+        this.changeChannel(index)
       }
     },
     // 删除频道
@@ -119,7 +119,14 @@ export default {
       this.userChannels.splice(index, 1)
     },
     // 切换频道
-    changeChannel (index) {}
+    changeChannel (index) {
+      console.log(index)
+      // 组件通信自定义事件 显示切换的频道
+      this.$emit('update-active', index)
+
+      // 组件通信自定义事件 关闭弹出层
+      this.$emit('close')
+    }
   }
 }
 </script>
