@@ -29,7 +29,8 @@
         class="grid-item"
         v-for="(channel, index) in recommendChannels"
         :key="index"
-        :text="channel.name" />
+        :text="channel.name"
+        @click="onAdd(channel)"/>
       </van-grid>
   </div>
 </template>
@@ -94,6 +95,11 @@ export default {
     async loadAllChannels () {
       const res = await getAllChannels()
       this.allChannels = res.data.data.channels
+    },
+    onAdd (channel) {
+      this.userChannels.push(channel)
+
+      // 点击添加至我的频道的数据刷新即会丢失 所以需设置数据持久化
     }
   }
 }
