@@ -113,7 +113,7 @@ export default {
     onUserChannelClick (index) {
       if (this.isEdit && index !== 0) {
         // 编辑状态: 删除频道
-        this.deleteChannel()
+        this.deleteChannel(index)
       } else {
         // 非编辑状态: 切换频道
         this.changeChannel(index)
@@ -121,6 +121,11 @@ export default {
     },
     // 删除频道
     deleteChannel (index) {
+      // 如果删除的是当前激活频道之前的频道
+      if (index <= this.active) {
+        // 更新激活频道的索引
+        this.$emit('update-active', this.active - 1)
+      }
       this.userChannels.splice(index, 1)
     },
     // 切换频道
