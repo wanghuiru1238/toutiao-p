@@ -40,7 +40,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getAllChannels } from '@/api/channel'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
   components: {},
@@ -61,6 +63,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['user']),
     recommendChannels () {
       // filter方法可过滤数据 根据返回的布尔值true收集数据
 
@@ -109,6 +112,13 @@ export default {
       this.userChannels.push(channel)
 
       // 点击添加至我的频道的数据刷新即会丢失 所以需设置数据持久化
+      if (this.user) {
+        // 登录状态,数据存储到线上
+
+      } else {
+        // 没有登录,数据存储到本地
+        setItem('user-channels', this.userChannels)
+      }
     },
     onUserChannelClick (index) {
       if (this.isEdit && index !== 0) {
