@@ -41,7 +41,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, addUserChannel } from '@/api/channel'
 import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
@@ -108,13 +108,17 @@ export default {
       const res = await getAllChannels()
       this.allChannels = res.data.data.channels
     },
-    onAdd (channel) {
+    async onAdd (channel) {
       this.userChannels.push(channel)
 
       // 点击添加至我的频道的数据刷新即会丢失 所以需设置数据持久化
       if (this.user) {
         // 登录状态,数据存储到线上
-
+        await addUserChannel({
+          channels: [
+            { id: channel.id, seq: this.userChannels.length }
+          ]
+        })
       } else {
         // 没有登录,数据存储到本地
         setItem('user-channels', this.userChannels)
