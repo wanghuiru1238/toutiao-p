@@ -41,6 +41,7 @@
     <!-- 频道编辑里内容组件 -->
     <channel-edit
     :user-channels="channels"
+    :active="active"
     @close="channelShow = false"
     @update-active="active = $event"/>
 

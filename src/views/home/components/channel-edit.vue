@@ -16,6 +16,7 @@
       <van-grid :gutter="10">
         <van-grid-item
         class="grid-item"
+        :class="{ active: index === active}"
         :icon = "(isEdit && index !== 0) ? 'clear' : ''"
         v-for="(channel,index) in userChannels"
         :key="index"
@@ -44,6 +45,10 @@ export default {
   name: 'ChannelEdit',
   components: {},
   props: {
+    active: {
+      type: Number,
+      required: true
+    },
     'user-channels': {
       type: Array,
       required: true
@@ -159,6 +164,11 @@ export default {
         font-size: 17px;
         color:  #ccc;
       }
+    }
+  }
+  .active {
+    /deep/.van-grid-item__text {
+      color: red !important;
     }
   }
 }
