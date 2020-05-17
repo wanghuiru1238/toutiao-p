@@ -2,7 +2,13 @@
   <div class="home-c">
       <!-- 头部导航栏start -->
       <van-nav-bar class="app-nav-bar">
-        <van-button round class="search-btn" slot="title" icon="search" type="info">
+        <van-button
+        round
+        class="search-btn"
+        slot="title"
+        icon="search"
+        type="info"
+        to="/search">
         搜索
         </van-button>
       </van-nav-bar>
@@ -64,7 +70,7 @@ export default {
   props: {},
   data () {
     return {
-      channelShow: true, // 控制弹出层是否弹出
+      channelShow: false, // 控制弹出层是否弹出
       active: 0, // 按照索引控制频道默认显示项
       channels: [] // 频道列表
     }
