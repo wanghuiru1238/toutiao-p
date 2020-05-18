@@ -12,6 +12,7 @@
 
 <script>
 import { getSearchSuggestions } from '@/api/search'
+import { debounce } from 'lodash'
 export default {
   name: 'SearchSuggestion',
   components: {},
@@ -31,10 +32,10 @@ export default {
     // 监听搜索框的变化(也就是searchText的变化)
     searchText: {
       // 当数据发生变化就会触发hander函数
-      async handler () {
+      handler: debounce(async function () {
         const res = await getSearchSuggestions(this.searchText)
         this.suggestions = res.data.data.options
-      },
+      }, 200),
       immediate: true // 该回调函数会在监听开始之后被立即调用
     }
   },
