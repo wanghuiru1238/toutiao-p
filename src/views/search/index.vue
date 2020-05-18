@@ -18,7 +18,10 @@
     <!-- 搜索结果end -->
 
     <!-- 联想建议start -->
-    <SearchSuggestion v-else-if="searchText"/>
+    <SearchSuggestion
+    v-else-if="searchText"
+    :search-text = "searchText"
+    />
     <!-- 联想建议end -->
 
     <!-- 历史记录start -->

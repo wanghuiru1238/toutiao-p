@@ -5,7 +5,6 @@
     :finished="finished"
     finished-text="没有更多了"
     @load="onLoad"
-    @focus="isResultShow = false"
     >
       <van-cell v-for="item in list" :key="item" :title="item" />
     </van-list>
