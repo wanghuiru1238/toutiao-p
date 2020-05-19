@@ -6,7 +6,7 @@
       <van-search
       v-model="searchText"
       show-action
-      @search="onSearch"
+      @search="onSearch(searchText)"
       @cancel="$router.back()"
       @focus="isResultShow = false"
       placeholder="请输入搜索关键词" />
@@ -23,6 +23,7 @@
     <SearchSuggestion
     v-else-if="searchText"
     :search-text = "searchText"
+    @search="onSearch"
     />
     <!-- 联想建议end -->
 
@@ -56,7 +57,10 @@ export default {
   created () {},
   mounted () {},
   methods: {
-    onSearch () {
+    onSearch (searchText) {
+      // 输入框内容展示成要搜索的文本
+      this.searchText = searchText
+
       // 展示搜索结果
       this.isResultShow = true
     }
