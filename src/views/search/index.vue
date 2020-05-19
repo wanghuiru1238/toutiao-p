@@ -14,7 +14,9 @@
     <!-- 搜索栏end -->
 
     <!-- 搜索结果start -->
-    <search-result v-if="isResultShow"/>
+    <search-result
+    :search-text = "searchText"
+    v-if="isResultShow"/>
     <!-- 搜索结果end -->
 
     <!-- 联想建议start -->
