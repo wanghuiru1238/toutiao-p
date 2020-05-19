@@ -1,11 +1,11 @@
 <template>
   <div class="search-suggestion">
     <van-cell
-    :title="str"
     icon="search"
     v-for="(str, index) in suggestions"
     :key="index"
     >
+    <div slot="title" v-html="hightLing(str)"></div>
     </van-cell>
   </div>
 </template>
@@ -41,7 +41,20 @@ export default {
   },
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    hightLing (str) {
+      // 正则表达式 /中间的内容/ 都会当作正则匹配模式字符来对待
+      // 错误的写法： /this.searchText/gi
+      // RegExp 是正则表达式的构造函数
+      //  参数1：字符串
+      //  参数2：匹配模式
+      //  返回值：正则对象
+      return str.replace(
+        new RegExp(this.searchText, 'gi'),
+        `<span style="color : red">${this.searchText}</span>`
+      )
+    }
+  }
 }
 </script>
 
