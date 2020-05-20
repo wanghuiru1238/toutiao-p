@@ -43,7 +43,7 @@ import SearchHostory from './components/search-hostory'
 import SearchResult from './components/search-result'
 import { setItem, getItem } from '@/utils/storage'
 import { mapState } from 'vuex'
-import { getSearchHostory } from '@/api/search'
+// import { getSearchHostory } from '@/api/search'
 export default {
   name: 'SearchIndex',
   components: {
@@ -94,15 +94,15 @@ export default {
     },
     async loadSearchHostory () {
       // 历史记录和本地的历史记录合并到一起
-      let SearchHostory = getItem('search-hostory') || []
+      const SearchHostory = getItem('search-hostory') || []
       // 用户已经登录 调接口获取线上搜索历史记录
-      if (this.user) {
-        const res = await getSearchHostory()
-        SearchHostory = [...new Set([
-          ...SearchHostory,
-          ...res.data.data.keywords
-        ])]
-      }
+      // if (this.user) {
+      //   const res = await getSearchHostory()
+      //   SearchHostory = [...new Set([
+      //     ...SearchHostory,
+      //     ...res.data.data.keywords
+      //   ])]
+      // }
       this.SearchHostory = SearchHostory
     }
   }
