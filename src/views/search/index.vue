@@ -40,6 +40,9 @@
 import SearchSuggestion from './components/search-suggestion'
 import SearchHostory from './components/search-hostory'
 import SearchResult from './components/search-result'
+import { setItem, getItem } from '@/utils/storage'
+import { mapState } from 'vuex'
+import { getSearchHostory } from '@/api/search'
 export default {
   name: 'SearchIndex',
   components: {
@@ -52,12 +55,16 @@ export default {
     return {
       searchText: '', // 搜索框中的文字
       isResultShow: false, // 控制搜索结果的显示状态
-      SearchHostory: [] // 历史搜索记录
+      SearchHostory: getItem('search-hostory') || []// 历史搜索记录
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['user'])
+  },
   watch: {},
-  created () {},
+  created () {
+    this.loadSearchHostory()
+  },
   mounted () {},
   methods: {
     onSearch (searchText) {
@@ -74,8 +81,28 @@ export default {
 
       // 记录搜索历史记录,把新搜索的记录放最前
       this.SearchHostory.unshift(searchText)
+
+      // 数据持久化
+      // 如果用户登录 则把历史搜索记录放到线上,调用获取搜索结果的数据接口即可
+
+      // 如果未登录 则把搜索记录数据保存到本地
+      setItem('search-hostory', this.SearchHostory)
+
       // 展示搜索结果
       this.isResultShow = true
+    },
+    async loadSearchHostory () {
+      // 历史记录和本地的历史记录合并到一起
+      let SearchHostory = getItem('search-hostory') || []
+      // 用户已经登录 调接口获取线上搜索历史记录
+      if (this.user) {
+        const res = await getSearchHostory()
+        SearchHostory = [...new Set([
+          ...SearchHostory,
+          ...res.data.data.keywords
+        ])]
+      }
+      this.SearchHostory = SearchHostory
     }
   }
 }
