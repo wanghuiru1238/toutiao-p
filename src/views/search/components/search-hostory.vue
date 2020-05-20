@@ -10,7 +10,10 @@
     </van-cell>
     <van-cell>
     </van-cell>
-    <van-cell title="aaaa">
+    <van-cell
+    v-for="(hostory, index) in SearchHostory"
+    :key="index"
+    :title="hostory">
       <van-icon name="close"/>
     </van-cell>
   </div>
@@ -20,7 +23,12 @@
 export default {
   name: 'SearchHostory',
   components: {},
-  props: {},
+  props: {
+    SearchHostory: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {}
   },
