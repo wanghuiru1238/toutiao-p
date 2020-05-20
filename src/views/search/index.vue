@@ -31,6 +31,7 @@
     <SearchHostory
     :search-hostory = "SearchHostory"
     v-else
+    @update-hostory="SearchHostory = $event"
     @search="onSearch"/>
     <!-- 历史记录end -->
 
@@ -62,7 +63,12 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  watch: {},
+  watch: {
+    // 监视搜索历史记录的变化，存储到本地存储
+    SearchHostory () {
+      setItem('search-hostory', this.SearchHostory)
+    }
+  },
   created () {
     this.loadSearchHostory()
   },
@@ -87,7 +93,7 @@ export default {
       // 如果用户登录 则把历史搜索记录放到线上,调用获取搜索结果的数据接口即可
 
       // 如果未登录 则把搜索记录数据保存到本地
-      setItem('search-hostory', this.SearchHostory)
+      // setItem('search-hostory', this.SearchHostory)
 
       // 展示搜索结果
       this.isResultShow = true
