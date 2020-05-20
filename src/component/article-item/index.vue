@@ -1,6 +1,14 @@
 <template>
   <!-- 文章列表start -->
-  <van-cell class="article-item">
+  <van-cell
+  class="article-item"
+  :to="{
+    name: 'article',
+    params: {
+      articleId: article.art_id
+    }
+  }"
+  >
 
     <!-- 文章标题stare -->
     <div slot="title" class="article-title van-multi-ellipsis--l3">
