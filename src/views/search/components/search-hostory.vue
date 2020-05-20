@@ -1,20 +1,26 @@
 <template>
   <div class="search-hostory">
     <van-cell title="搜索历史">
-      <div>
+      <div v-if="isDeleteShow">
         <span>全部删除</span>
         &nbsp;&nbsp;&nbsp;
-        <span>完成</span>
+        <span @click="isDeleteShow = false">完成</span>
       </div>
-      <van-icon name="delete"/>
+      <van-icon
+      name="delete"
+      v-else
+      @click="isDeleteShow = true"
+      />
     </van-cell>
     <van-cell>
     </van-cell>
     <van-cell
     v-for="(hostory, index) in SearchHostory"
     :key="index"
-    :title="hostory">
-      <van-icon name="close"/>
+    :title="hostory"
+    @click="onDelete(hostory, index)">
+      <van-icon name="close"
+      v-show="isDeleteShow"/>
     </van-cell>
   </div>
 </template>
@@ -30,13 +36,26 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      isDeleteShow: false // 关闭图标x的显示状态
+    }
   },
   computed: {},
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    onDelete (hostory, index) {
+      // 如果在删除状态下 则执行删除操作
+      if (this.isDeleteShow) {
+        this.SearchHostory.splice(index, 1)
+        return
+      }
+
+      // 非删除状态下 点击墨香历史记录则展示该项搜索结果
+      this.$emit('search', hostory)
+    }
+  }
 }
 </script>
 

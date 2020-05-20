@@ -30,7 +30,8 @@
     <!-- 历史记录start -->
     <SearchHostory
     :search-hostory = "SearchHostory"
-    v-else/>
+    v-else
+    @search="onSearch"/>
     <!-- 历史记录end -->
 
   </div>
