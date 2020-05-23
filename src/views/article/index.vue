@@ -9,12 +9,13 @@
     />
     <!-- 头部end -->
 
-    <!-- 文章标题start -->
-    <h1 class="article-title">{{ article.title }}</h1>
-    <!-- 文章标题end -->
+    <div class="article-wrap">
+      <!-- 文章标题start -->
+      <h1 class="article-title">{{ article.title }}</h1>
+      <!-- 文章标题end -->
 
-    <!-- 作者信息start -->
-    <van-cell center class="author-info">
+      <!-- 作者信息start -->
+      <van-cell center class="author-info">
 
       <!-- 作者名称 -->
       <div slot="title" class="name">{{ article.aut_name }}</div>
@@ -42,7 +43,7 @@
       :loading="isFollowLoading"
       >{{ article.is_followed ? '已关注' : '关注' }}</van-button>
 
-    </van-cell>
+      </van-cell>
     <!-- 作者信息end -->
 
     <!-- 文章内容 -->
@@ -52,6 +53,10 @@
     v-html="article.content"
     >
     </div>
+
+    <!-- 文章评论列表 -->
+    <comment-list :source="articleId"/>
+  </div>
 
     <!-- 底部区域start -->
     <div class="article-bottom">
@@ -86,6 +91,7 @@
 import './github-markdown.css'
 import { getArticles, addCollect, deleteCollect, addLike, deleteLike } from '@/api/article'
 import { addFollow, deleteFollow } from '@/api/user'
+import CommentList from './components/comment-list'
 
 // 这个图片预览组件必须要单独加载
 import { ImagePreview } from 'vant'
@@ -96,7 +102,9 @@ import { ImagePreview } from 'vant'
 //      this.articleId
 export default {
   name: 'ArticleIndex',
-  components: {},
+  components: {
+    CommentList
+  },
   props: {
     articleId: {
       type: [String, Number, Object],
@@ -203,6 +211,14 @@ export default {
 
 <style scoped lang="less">
 .article-c {
+  .article-wrap {
+    position: fixed;
+    top: 46px;
+    bottom: 45px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+  }
   .article-title {
     font-size: 20px;
     padding: 24px 20px 18px;
@@ -216,19 +232,19 @@ export default {
       height: 40px;
       margin-right: 9px;
     }
-  .name {
-    font-size: 14px;
-    color: #333;
+    .name {
+      font-size: 14px;
+      color: #333;
+    }
+    .pubdate {
+      font-size: 12px;
+      color: #b4b4b4;
+    }
+    .btn {
+      height: 29px;
+      width: 80px;
+    }
   }
-  .pubdate {
-    font-size: 12px;
-    color: #b4b4b4;
-  }
-  .btn {
-    height: 29px;
-    width: 80px;
-  }
-}
 .markdown-body {
   padding: 24px;
   background-color: #fff;
